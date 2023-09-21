@@ -1,5 +1,8 @@
+//rendered as server-side component - all files by default
+//add "use client" directive to top of page to turn it into client-side component
 import Image from 'next/image'
 
+//represents home page route of app: localhost:3000: boiler plate code
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
