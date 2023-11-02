@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+//mongoose helps us interact with mongoDB database
 
 const UserSchema = new Schema({
   email: {

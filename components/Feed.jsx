@@ -30,6 +30,7 @@ const Feed = () => {
 
   useEffect(() => {
     const fetchPosts = async() => {
+      //created this route in api/prompt/route.js
       const response = await fetch('/api/prompt');
       const data = await response.json();
 
@@ -41,7 +42,7 @@ const Feed = () => {
 
   return (
     <section className='feed'>
-      {/* <form className='relative w-full flex-center'>
+      <form className='relative w-full flex-center'>
         <input
           type='text'
           placeholder='Search for a tag or username'
@@ -50,7 +51,7 @@ const Feed = () => {
           required
           className='search_input peer'
         />
-      </form> */}
+      </form>
 
       <PromptCardList
         data={posts}

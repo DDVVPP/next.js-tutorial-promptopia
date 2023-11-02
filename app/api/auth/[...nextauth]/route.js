@@ -14,6 +14,7 @@ const handler = NextAuth({
   ],
   callbacks: {
     //make sure we always know which user is currently online
+    //updating the id
     async session({ session }) {
       const sessionUser = await User.findOne({
         email: session.user.email
@@ -25,7 +26,7 @@ const handler = NextAuth({
     },
 
     async signIn({ profile }) {
-      //every next.js route is a serverless route (lambda) -> only runs when its called
+      //every next.js route is a serverless route (lambda) -> only runs when its called -> server doesn't have to be kept running constantly (see database.js to hook up to db)
       try {
         await connectToDB();
 
@@ -35,6 +36,7 @@ const handler = NextAuth({
         });
 
         //if not, create a new user
+        //create a model
         if(!userExists) {
           await User.create({
             email: profile.email,
