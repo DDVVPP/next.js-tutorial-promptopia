@@ -31,40 +31,42 @@ const EditPrompt = () => {
     if (promptId) getPromptDetails();
   }, [promptId])
 
-  // const editPrompt = async (e) => {
-  //   //prevent default behavior of browser when submitting a form which is to do a reload when we want the least amount of reloads as possible
-  //   e.preventDefault();
-  //   setSubmitting(true);
+  const updatePrompt = async (e) => {
+    //prevent default behavior of browser when submitting a form which is to do a reload when we want the least amount of reloads as possible
+    e.preventDefault();
+    setSubmitting(true);
 
-  //   try {
-  //     //pass data to this api endpoint (instead of separate BE dev with BE server and express routes, just go to api folder - prompt/new)
-  //     const response = await fetch('/api/prompt/new', {
-  //       method: 'POST',
-  //       body: JSON.stringify({
-  //         prompt: post.prompt,
-  //         userId: session?.user.id,
-  //         tag: post.tag
-  //       })
-  //     })
+    if(!promptId) return alert('Prompt ID not found')
 
-  //     //if it was successful, redirect to home page
-  //     if (response.ok) {
-  //       router.push('/');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setSubmitting(false);
-  //   }
-  // }
+    try {
+      //pass data to this api endpoint (instead of separate BE dev with BE server and express routes, just go to api folder - prompt/new)
+      const response = await fetch(`/api/prompt/${promptId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          prompt: post.prompt,
+          userId: session?.user.id,
+          tag: post.tag
+        })
+      })
+
+      //if it was successful, redirect to home page
+      if (response.ok) {
+        router.push('/');
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <Form
-      type="Create"
+      type="Edit"
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={() => {}}
+      handleSubmit={updatePrompt}
     />
   )
 }
